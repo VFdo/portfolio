@@ -1,6 +1,7 @@
 'use client'
 
 import { useWeather } from '@/hooks/useWeather';
+import { cn } from '@/lib/utils';
 import { motion } from "motion/react";
 
 function getScene(weatherCode?: number, isDay = true) {
@@ -17,6 +18,7 @@ function getScene(weatherCode?: number, isDay = true) {
   }
   console.log("returning clear " + day)
   return {
+    // image: `/backdrops/rain-night.jpg`, // for dev test
     image: `/backdrops/clear-${day}.jpg`,
   }
 }
@@ -56,7 +58,10 @@ export function HomeSection() {
           <motion.p
             initial="hiddenVariants"
             animate="visibleVariants"
-           className="text-muted-foreground max-w-xl pt-4 max-sm:pt-2 text-base max-sm:text-sm break-normal"
+            className={cn(
+              "text-muted-foreground max-w-xl pt-4 max-sm:pt-2 text-base max-sm:text-sm break-normal font-semibold",
+              scene.image === '/backdrops/clear-day.jpg' && "bg-white/5 backdrop-blur-sm p-4 rounded-lg"
+            )}
           >
             {ABOUT.split(" ").map((word, idx) => (
               <motion.span
